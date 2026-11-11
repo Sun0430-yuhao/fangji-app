@@ -1,0 +1,109 @@
+/* 方剂学学习平台 - 新中式本草风（与 mockups 同源令牌） */
+:root {
+  --paper: #f4eee1;
+  --card: #faf6ea;
+  --card-dark: #ece3cd;
+  --ink: #2b2620;
+  --ink-light: #7d7466;
+  --cinnabar: #b03a2e;
+  --cinnabar-deep: #8e2f25;
+  --amber: #c08a2d;
+  --bamboo: #5f7050;
+  --line: #ddd2ba;
+  --serif: "Noto Serif SC", "Source Han Serif SC", "STSong", "SimSun", serif;
+  /* 覆盖 Vant 默认蓝，否则主按钮/Tab 会变成 #1989fa */
+  --van-primary-color: #b03a2e;
+  --van-tabbar-item-active-color: #b03a2e;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--serif);
+}
+
+#app {
+  min-height: 100vh;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(176, 58, 46, 0.025) 0, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(95, 112, 80, 0.03) 0, transparent 40%);
+}
+
+.page {
+  min-height: 100vh;
+  padding-bottom: calc(70px + env(safe-area-inset-bottom));
+  box-sizing: border-box;
+}
+.page.no-tab { padding-bottom: 24px; }
+
+.wrap { padding: 12px 16px 0; }
+
+/* 印章标签 */
+.seal {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--cinnabar);
+  color: #f8ecd9;
+  border-radius: 4px;
+  font-size: 11px;
+  padding: 3px 7px;
+  letter-spacing: 1px;
+}
+.seal.bamboo { background: var(--bamboo); }
+.seal.amber { background: var(--amber); }
+
+/* 区块标题 */
+.sec-title {
+  margin: 18px 0 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.sec-title h2 {
+  font-size: 16px;
+  letter-spacing: 2px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+}
+.sec-title h2::before {
+  content: "";
+  width: 4px;
+  height: 15px;
+  background: var(--cinnabar);
+  border-radius: 2px;
+}
+.sec-title .more { font-size: 12px; color: var(--ink-light); }
+
+/* 卡片 */
+.pcard {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(90, 70, 40, 0.06);
+}
+
+/* 进度条 */
+.bar { height: 5px; background: var(--card-dark); border-radius: 3px; overflow: hidden; }
+.bar i { display: block; height: 100%; background: linear-gradient(90deg, var(--cinnabar), #d0584a); border-radius: 3px; }
+
+/* Vant 主题融入（写在组件样式之后加载，保证压过默认蓝） */
+.van-nav-bar { background: var(--paper); }
+.van-nav-bar__title { font-family: var(--serif); letter-spacing: 2px; }
+.van-nav-bar .van-icon { color: var(--ink); }
+.van-tabbar { background: var(--card); border-top: 1px solid var(--line); }
+.van-tabbar-item--active,
+.van-tabbar-item--active .van-tabbar-item__icon { color: var(--cinnabar) !important; }
+.van-button--primary {
+  background: var(--cinnabar) !important;
+  border-color: var(--cinnabar) !important;
+  color: #f8ecd9 !important;
+}
+.van-button--primary:active { background: var(--cinnabar-deep) !important; border-color: var(--cinnabar-deep) !important; }
+.van-search { background: var(--paper); }
+.van-circle__text { font-family: var(--serif); }

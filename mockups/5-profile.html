@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="shared.css">
+<style>
+  .title { padding: 12px 0 4px; font-size: 20px; letter-spacing: 3px; font-weight: 700; }
+
+  .ring-card {
+    margin-top: 10px; background: var(--card); border: 1px solid var(--line); border-radius: 16px;
+    padding: 16px; display: flex; align-items: center; gap: 24px;
+    box-shadow: 0 3px 10px rgba(90,70,40,0.06);
+  }
+  .ring { position: relative; width: 110px; height: 110px; flex-shrink: 0; }
+  .ring svg { transform: rotate(-90deg); }
+  .ring .c-txt { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .ring .c-txt b { font-size: 24px; color: var(--cinnabar); }
+  .ring .c-txt span { font-size: 11px; color: var(--ink-light); margin-top: 2px; letter-spacing: 1px; }
+  .stats { display: flex; gap: 22px; }
+  .stat b { font-size: 20px; display: block; }
+  .stat span { font-size: 11px; color: var(--ink-light); letter-spacing: 1px; }
+  .stat.red b { color: var(--cinnabar); }
+
+  .sec-title { margin: 14px 0 10px; display: flex; justify-content: space-between; align-items: baseline; }
+  .sec-title h2 { font-size: 16px; letter-spacing: 2px; display: flex; align-items: center; gap: 8px; }
+  .sec-title h2::before { content: ""; width: 4px; height: 15px; background: var(--cinnabar); border-radius: 2px; }
+  .sec-title .more { font-size: 12px; color: var(--ink-light); }
+
+  .mrow { margin-bottom: 11px; }
+  .mrow .top { display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 7px; }
+  .mrow .top span:last-child { color: var(--cinnabar); font-size: 12px; }
+  .mrow .bar { height: 5px; background: var(--card-dark); border-radius: 3px; overflow: hidden; }
+  .mrow .bar i { display: block; height: 100%; background: linear-gradient(90deg, var(--cinnabar), #d0584a); border-radius: 3px; }
+
+  .list { margin-top: 4px; background: var(--card); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+  .item { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-bottom: 1px solid var(--line); font-size: 15px; letter-spacing: 1px; }
+  .item:last-child { border-bottom: none; }
+  .item .ic { width: 34px; height: 34px; border-radius: 8px; background: var(--card-dark); display: flex; align-items: center; justify-content: center; font-size: 16px; }
+  .item .n { margin-left: auto; color: var(--ink-light); font-size: 12px; }
+  .item .arrow { color: var(--ink-light); }
+</style>
+</head>
+<body>
+  <div class="statusbar"><span>9:15</span><span class="icons">
+    <svg width="16" height="12" viewBox="0 0 16 12"><rect x="0" y="7" width="3" height="5" fill="#2b2620"/><rect x="4.5" y="4.5" width="3" height="7.5" fill="#2b2620"/><rect x="9" y="2" width="3" height="10" fill="#2b2620"/><rect x="13" y="0" width="3" height="12" fill="#c9bfa8"/></svg>
+    <svg width="22" height="11" viewBox="0 0 25 12"><rect x="0.5" y="0.5" width="21" height="11" rx="3" fill="none" stroke="#2b2620"/><rect x="2.5" y="2.5" width="14" height="7" rx="1.5" fill="#2b2620"/><rect x="22.5" y="4" width="2" height="4" rx="1" fill="#2b2620"/></svg>
+  </span></div>
+
+  <div class="content">
+    <div class="title">我的</div>
+
+    <div class="ring-card">
+      <div class="ring">
+        <svg width="110" height="110" viewBox="0 0 110 110">
+          <circle cx="55" cy="55" r="46" fill="none" stroke="#ece3cd" stroke-width="9"/>
+          <circle cx="55" cy="55" r="46" fill="none" stroke="#b03a2e" stroke-width="9"
+            stroke-linecap="round" stroke-dasharray="289" stroke-dashoffset="167"/>
+        </svg>
+        <div class="c-txt"><b>42%</b><span>总进度</span></div>
+      </div>
+      <div class="stats">
+        <div class="stat"><b>73</b><span>已学方剂</span></div>
+        <div class="stat"><b>12</b><span>收藏</span></div>
+        <div class="stat red"><b>8</b><span>错题</span></div>
+      </div>
+    </div>
+
+    <div class="sec-title"><h2>章节掌握度</h2><span class="more">全部 →</span></div>
+    <div class="mrow"><div class="top"><span>解表剂</span><span>81%</span></div><div class="bar"><i style="width:81%"></i></div></div>
+    <div class="mrow"><div class="top"><span>泻下剂</span><span>50%</span></div><div class="bar"><i style="width:50%"></i></div></div>
+    <div class="mrow"><div class="top"><span>清热剂</span><span>10%</span></div><div class="bar"><i style="width:10%"></i></div></div>
+
+    <div class="sec-title"><h2>我的学习</h2></div>
+    <div class="list">
+      <div class="item"><span class="ic">✎</span>错题本<span class="n">8 题待重做</span><span class="arrow">›</span></div>
+      <div class="item"><span class="ic">♡</span>我的收藏<span class="n">12 方</span><span class="arrow">›</span></div>
+    </div>
+  </div>
+
+  <div class="tabbar">
+    <div class="tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5a2 2 0 012-2h12a2 2 0 012 2v14l-4-3H6a2 2 0 01-2-2V5z"/></svg>学习</div>
+    <div class="tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8"/></svg>背诵</div>
+    <div class="tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M9 10a3 3 0 015.8 1c0 2-2.8 2.4-2.8 4M12 18h.01"/></svg>刷题</div>
+    <div class="tab active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>我的</div>
+  </div>
+</body>
+</html>

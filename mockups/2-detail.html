@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="shared.css">
+<style>
+  .nav { height: 44px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; padding: 0 4px; }
+  .nav .back { font-size: 20px; color: var(--ink); }
+  .nav .acts { display: flex; gap: 16px; color: var(--ink-light); font-size: 18px; }
+
+  .title-row { display: flex; align-items: baseline; gap: 12px; margin-top: 2px; }
+  .title-row h1 { font-size: 30px; letter-spacing: 4px; }
+  .nav { height: 36px; }
+  .title-row .src { font-size: 13px; color: var(--ink-light); }
+  .crumbs { font-size: 11px; color: var(--ink-light); margin-top: 6px; letter-spacing: 1px; }
+  .crumbs b { color: var(--cinnabar); font-weight: 500; }
+
+  .block { margin-top: 12px; }
+  .block-h { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .block-h .seal { font-size: 11px; padding: 3px 7px; }
+  .block-h .en { font-size: 11px; color: var(--ink-light); letter-spacing: 2px; }
+
+  .comp { background: var(--card); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+  .comp .row { display: flex; align-items: center; padding: 8px 14px; border-bottom: 1px dashed var(--line); }
+  .comp .row:last-child { border-bottom: none; }
+  .role { width: 26px; height: 26px; border-radius: 5px; background: var(--cinnabar); color: #f8ecd9;
+    display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; }
+  .role.chen { background: #9c4a3c; } .role.zuo { background: var(--amber); } .role.shi { background: var(--bamboo); }
+  .comp .herbs { margin-left: 14px; font-size: 16px; letter-spacing: 1px; }
+  .comp .herbs span { color: var(--ink-light); font-size: 12px; margin-left: 8px; letter-spacing: 0; }
+
+  .para { font-size: 13px; line-height: 1.8; color: var(--ink); }
+
+  .verse-card {
+    margin-top: 4px; background: linear-gradient(135deg, #f1e7cf, #ece0c2);
+    border-radius: 12px; padding: 12px 16px; border-left: 4px solid var(--cinnabar);
+  }
+  .verse-card p { font-size: 14px; line-height: 1.9; letter-spacing: 2px; }
+
+  .cta {
+    margin-top: auto; margin-bottom: 12px; display: flex; gap: 12px; flex-shrink: 0;
+  }
+  .cta .btn-main {
+    flex: 1; height: 46px; border-radius: 23px; background: var(--cinnabar); color: #f8ecd9;
+    display: flex; align-items: center; justify-content: center; font-size: 16px; letter-spacing: 3px;
+    box-shadow: 0 4px 12px rgba(142,47,37,0.3);
+  }
+  .cta .btn-sub {
+    width: 48px; height: 48px; border-radius: 50%; border: 1px solid var(--cinnabar); color: var(--cinnabar);
+    display: flex; align-items: center; justify-content: center; font-size: 18px; background: var(--card);
+  }
+</style>
+</head>
+<body>
+  <div class="statusbar"><span>9:15</span><span class="icons">
+    <svg width="16" height="12" viewBox="0 0 16 12"><rect x="0" y="7" width="3" height="5" fill="#2b2620"/><rect x="4.5" y="4.5" width="3" height="7.5" fill="#2b2620"/><rect x="9" y="2" width="3" height="10" fill="#2b2620"/><rect x="13" y="0" width="3" height="12" fill="#c9bfa8"/></svg>
+    <svg width="22" height="11" viewBox="0 0 25 12"><rect x="0.5" y="0.5" width="21" height="11" rx="3" fill="none" stroke="#2b2620"/><rect x="2.5" y="2.5" width="14" height="7" rx="1.5" fill="#2b2620"/><rect x="22.5" y="4" width="2" height="4" rx="1" fill="#2b2620"/></svg>
+  </span></div>
+
+  <div class="content" style="padding-bottom:0; zoom:0.9;">
+    <div class="nav"><span class="back">‹</span><span class="acts">♡ ⋯</span></div>
+
+    <div class="title-row"><h1>麻黄汤</h1><span class="src">《伤寒论》</span></div>
+    <div class="crumbs">第一章 解表剂 <b>·</b> 辛温解表 <b>·</b> 已加入背诵</div>
+
+    <div class="block">
+      <div class="block-h"><span class="seal">组成</span><span class="en">君臣佐使</span></div>
+      <div class="comp">
+        <div class="row"><span class="role">君</span><span class="herbs">麻黄<span>三两，去节</span></span></div>
+        <div class="row"><span class="role chen">臣</span><span class="herbs">桂枝<span>二两，去皮</span></span></div>
+        <div class="row"><span class="role zuo">佐</span><span class="herbs">杏仁<span>七十个，去皮尖</span></span></div>
+        <div class="row"><span class="role shi">使</span><span class="herbs">炙甘草<span>一两</span></span></div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-h"><span class="seal">功用</span></div>
+      <p class="para">发汗解表，宣肺平喘。</p>
+    </div>
+
+    <div class="block">
+      <div class="block-h"><span class="seal">主治</span></div>
+      <p class="para">外感风寒表实证。恶寒发热，头身疼痛，无汗而喘，舌苔薄白，脉浮紧。</p>
+    </div>
+
+    <div class="block">
+      <div class="block-h"><span class="seal">歌诀</span></div>
+      <div class="verse-card"><p>麻黄汤中臣桂枝，杏仁甘草四般施，发汗解表宣肺气，伤寒表实无汗宜。</p></div>
+    </div>
+
+    <div class="cta">
+      <div class="btn-sub">♡</div>
+      <div class="btn-main">加入背诵</div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,91 @@
+/* 方剂学学习平台 - 新中式本草风 设计规范 */
+:root {
+  --paper: #f4eee1;        /* 宣纸底色 */
+  --card: #faf6ea;         /* 卡片 */
+  --card-dark: #ece3cd;    /* 深色卡片 */
+  --ink: #2b2620;          /* 墨色正文 */
+  --ink-light: #7d7466;    /* 浅墨 */
+  --cinnabar: #b03a2e;     /* 朱砂 */
+  --cinnabar-deep: #8e2f25;
+  --amber: #c08a2d;        /* 琥珀 */
+  --bamboo: #5f7050;       /* 竹青 */
+  --line: #ddd2ba;         /* 分割线 */
+  --serif: "Noto Serif SC", "Source Han Serif SC", "STSong", "SimSun", serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  width: 390px;
+  height: 844px;
+  overflow: hidden;
+  font-family: var(--serif);
+  background: var(--paper);
+  color: var(--ink);
+  /* 宣纸纹理 */
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(176,58,46,0.025) 0, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(95,112,80,0.03) 0, transparent 40%),
+    repeating-linear-gradient(0deg, transparent 0 3px, rgba(120,100,70,0.012) 3px 4px);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* 状态栏 */
+.statusbar {
+  height: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 24px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+  flex-shrink: 0;
+}
+.statusbar .icons { display: flex; gap: 6px; align-items: center; }
+.statusbar svg { display: block; }
+
+/* 通用印章 */
+.seal {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--cinnabar);
+  color: #f8ecd9;
+  border-radius: 4px;
+  font-size: 11px;
+  padding: 3px 6px;
+  letter-spacing: 1px;
+  box-shadow: 0 1px 3px rgba(142,47,37,0.35);
+}
+
+/* 底部 Tab */
+.tabbar {
+  height: 72px;
+  flex-shrink: 0;
+  background: var(--card);
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding-bottom: 14px;
+}
+.tabbar .tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  font-size: 11px;
+  color: var(--ink-light);
+}
+.tabbar .tab.active { color: var(--cinnabar); }
+.tabbar .tab svg { width: 22px; height: 22px; }
+
+.content { flex: 1; overflow: hidden; padding: 0 20px; display: flex; flex-direction: column; }
+
+/* 分隔竖线装饰 */
+.divider-vert {
+  width: 1px; height: 14px; background: var(--line); display: inline-block; margin: 0 10px; vertical-align: middle;
+}

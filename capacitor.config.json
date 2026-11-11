@@ -1,0 +1,13 @@
+{
+  "appId": "com.fangji.study",
+  "appName": "方剂学",
+  "webDir": "dist",
+  "server": {
+    "androidScheme": "https"
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0
+    }
+  }
+}

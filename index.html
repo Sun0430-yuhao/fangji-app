@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#b03a2e" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="方剂学" />
+    <link rel="icon" type="image/png" href="./icons/icon-192.png" />
+    <link rel="apple-touch-icon" href="./icons/icon-192.png" />
+    <title>方剂学</title>
+    <style>
+      html, body { margin: 0; background: #f4eee1; color: #7d7466; font-family: serif; }
+      #boot-fallback {
+        min-height: 100vh; display: flex; flex-direction: column;
+        align-items: center; justify-content: center; gap: 12px;
+        letter-spacing: 2px; font-size: 15px; text-align: center; padding: 24px;
+        box-sizing: border-box;
+      }
+      #boot-fallback button {
+        letter-spacing: 1px; font-size: 14px; padding: 10px 18px;
+        border-radius: 20px; border: 1px solid #b03a2e; background: #b03a2e; color: #f8ecd9;
+      }
+    </style>
+    <script src="./data/embed.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <div id="boot-fallback">方剂载入中…</div>
+    </div>
+    <script>
+      (function () {
+        function show(msg) {
+          if (window.__FANGJI_MOUNTED__) return
+          var el = document.getElementById('boot-fallback')
+          if (!el) return
+          el.innerHTML = msg + '<br><button type="button" onclick="location.reload()">重试</button>'
+        }
+        window.onerror = function (msg) {
+          show('启动异常，请重试')
+          console.error(msg)
+        }
+        window.addEventListener('unhandledrejection', function (e) {
+          show('启动异常，请重试')
+          console.error(e && e.reason)
+        })
+        setTimeout(function () {
+          if (!window.__FANGJI_MOUNTED__) show('界面未能启动，请重试')
+        }, 8000)
+      })()
+    </script>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

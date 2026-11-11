@@ -1,0 +1,40 @@
+# dependencies
+node_modules/
+
+# build
+dist/
+dist-ssr/
+*.local
+
+# logs / env
+*.log
+.env
+.env.*
+!.env.example
+
+# editor / OS
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# Capacitor / Android local
+android/app/build/
+android/build/
+android/.gradle/
+android/local.properties
+android/captures/
+*.apk
+*.aab
+*.keystore
+*.jks
+
+# iOS
+ios/App/Pods/
+ios/DerivedData/
+
+# misc
+.cache/
+coverage/
+*.tsbuildinfo

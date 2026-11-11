@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="shared.css">
+<style>
+  .nav { height: 44px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; padding: 0 4px; }
+  .nav .back { font-size: 20px; }
+  .nav .t { font-size: 15px; letter-spacing: 2px; }
+  .nav .r { font-size: 12px; color: var(--ink-light); }
+
+  .prog { margin-top: 6px; }
+  .prog .txt { display: flex; justify-content: space-between; font-size: 12px; color: var(--ink-light); margin-bottom: 8px; }
+  .prog .txt b { color: var(--cinnabar); }
+  .prog .bar { height: 4px; background: var(--card-dark); border-radius: 2px; overflow: hidden; }
+  .prog .bar i { display: block; height: 100%; width: 25%; background: var(--cinnabar); border-radius: 2px; }
+
+  .qcard {
+    margin-top: 18px; background: var(--card); border: 1px solid var(--line); border-radius: 14px;
+    padding: 20px; box-shadow: 0 3px 10px rgba(90,70,40,0.07);
+  }
+  .qcard .type { margin-bottom: 12px; display: flex; gap: 8px; }
+  .qcard .q { font-size: 20px; letter-spacing: 1px; line-height: 1.7; }
+
+  .opts { margin-top: 18px; display: flex; flex-direction: column; gap: 12px; }
+  .opt {
+    display: flex; align-items: center; gap: 14px; background: var(--card);
+    border: 1px solid var(--line); border-radius: 12px; padding: 15px 16px;
+    font-size: 17px; letter-spacing: 2px;
+  }
+  .opt .ab {
+    width: 30px; height: 30px; border-radius: 50%; border: 1.5px solid var(--ink-light); color: var(--ink-light);
+    display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; letter-spacing: 0;
+  }
+  .opt.right { border: 2px solid var(--cinnabar); background: #fbf1ea; box-shadow: 0 3px 10px rgba(176,58,46,0.12); }
+  .opt.right .ab { background: var(--cinnabar); border-color: var(--cinnabar); color: #f8ecd9; }
+  .opt .mark { margin-left: auto; color: var(--cinnabar); font-size: 13px; border: 1.5px solid var(--cinnabar);
+    border-radius: 4px; padding: 2px 6px; transform: rotate(-6deg); }
+
+  .feedback {
+    margin-top: 18px; display: flex; align-items: center; gap: 10px;
+    background: #fbf1ea; border: 1px solid rgba(176,58,46,0.35); border-radius: 10px; padding: 12px 14px;
+    color: var(--cinnabar); font-size: 14px;
+  }
+
+  .next {
+    margin-top: auto; margin-bottom: 16px; height: 48px; border-radius: 24px; background: var(--cinnabar);
+    color: #f8ecd9; display: flex; align-items: center; justify-content: center; font-size: 16px; letter-spacing: 3px;
+    box-shadow: 0 4px 12px rgba(142,47,37,0.3);
+  }
+</style>
+</head>
+<body>
+  <div class="statusbar"><span>9:15</span><span class="icons">
+    <svg width="16" height="12" viewBox="0 0 16 12"><rect x="0" y="7" width="3" height="5" fill="#2b2620"/><rect x="4.5" y="4.5" width="3" height="7.5" fill="#2b2620"/><rect x="9" y="2" width="3" height="10" fill="#2b2620"/><rect x="13" y="0" width="3" height="12" fill="#c9bfa8"/></svg>
+    <svg width="22" height="11" viewBox="0 0 25 12"><rect x="0.5" y="0.5" width="21" height="11" rx="3" fill="none" stroke="#2b2620"/><rect x="2.5" y="2.5" width="14" height="7" rx="1.5" fill="#2b2620"/><rect x="22.5" y="4" width="2" height="4" rx="1" fill="#2b2620"/></svg>
+  </span></div>
+
+  <div class="content">
+    <div class="nav"><span class="back">‹</span><span class="t">自测刷题</span><span class="r">组成类</span></div>
+
+    <div class="prog">
+      <div class="txt"><span>第 <b>5</b> 题 / 共 20 题</span><span>正确 4 · 错误 0</span></div>
+      <div class="bar"><i></i></div>
+    </div>
+
+    <div class="qcard">
+      <div class="type"><span class="seal">单选</span><span class="seal" style="background:var(--bamboo);">君药</span></div>
+      <div class="q">麻黄汤的君药是？</div>
+    </div>
+
+    <div class="opts">
+      <div class="opt right"><span class="ab">A</span>麻黄<span class="mark">正确</span></div>
+      <div class="opt"><span class="ab">B</span>桂枝</div>
+      <div class="opt"><span class="ab">C</span>杏仁</div>
+      <div class="opt"><span class="ab">D</span>甘草</div>
+    </div>
+
+    <div class="feedback">✓ 回答正确 —— 麻黄发汗解表，为方中君药。</div>
+
+    <div class="next">下一题</div>
+  </div>
+</body>
+</html>

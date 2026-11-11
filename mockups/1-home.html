@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="shared.css">
+<style>
+  .header { padding: 14px 0 6px; display: flex; justify-content: space-between; align-items: flex-end; }
+  .header .greet { font-size: 24px; font-weight: 700; letter-spacing: 2px; }
+  .header .sub { font-size: 12px; color: var(--ink-light); margin-top: 6px; letter-spacing: 1px; }
+  .header .avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--card-dark);
+    display: flex; align-items: center; justify-content: center; font-size: 18px; color: var(--cinnabar); border: 1px solid var(--line); }
+
+  .daily {
+    margin-top: 14px;
+    background: linear-gradient(135deg, #fbf7ec 0%, #f3ead4 100%);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 18px;
+    position: relative;
+    box-shadow: 0 3px 10px rgba(90,70,40,0.08);
+  }
+  .daily .tag { position: absolute; top: -9px; left: 16px; }
+  .daily .verse { font-size: 17px; line-height: 2.0; letter-spacing: 2px; margin-top: 6px; }
+  .daily .from { margin-top: 10px; font-size: 12px; color: var(--ink-light); display: flex; justify-content: space-between; align-items: center; }
+  .daily .from .go { color: var(--cinnabar); font-size: 12px; }
+  .daily .stamp {
+    position: absolute; right: 16px; bottom: 40px; width: 44px; height: 44px;
+    border: 2px solid rgba(176,58,46,0.55); border-radius: 6px;
+    color: rgba(176,58,46,0.65); font-size: 13px; line-height: 1.15;
+    display: flex; align-items: center; justify-content: center; text-align: center;
+    transform: rotate(-8deg); letter-spacing: 0;
+  }
+
+  .sec-title { margin: 20px 0 12px; display: flex; justify-content: space-between; align-items: baseline; }
+  .sec-title h2 { font-size: 17px; letter-spacing: 2px; display: flex; align-items: center; gap: 8px; }
+  .sec-title h2::before { content: ""; width: 4px; height: 16px; background: var(--cinnabar); border-radius: 2px; }
+  .sec-title .more { font-size: 12px; color: var(--ink-light); }
+
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .chap {
+    background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 14px;
+    box-shadow: 0 2px 6px rgba(90,70,40,0.05);
+  }
+  .chap .name { font-size: 16px; font-weight: 600; letter-spacing: 2px; display: flex; justify-content: space-between; align-items: center; }
+  .chap .name .num { font-size: 11px; color: var(--ink-light); font-weight: 400; letter-spacing: 0; }
+  .chap .bar { margin-top: 12px; height: 5px; background: var(--card-dark); border-radius: 3px; overflow: hidden; }
+  .chap .bar i { display: block; height: 100%; background: linear-gradient(90deg, var(--cinnabar), #d0584a); border-radius: 3px; }
+  .chap .pct { margin-top: 7px; font-size: 11px; color: var(--ink-light); display: flex; justify-content: space-between; }
+  .chap .pct b { color: var(--cinnabar); font-weight: 600; }
+</style>
+</head>
+<body>
+  <div class="statusbar"><span>9:15</span><span class="icons">
+    <svg width="16" height="12" viewBox="0 0 16 12"><rect x="0" y="7" width="3" height="5" fill="#2b2620"/><rect x="4.5" y="4.5" width="3" height="7.5" fill="#2b2620"/><rect x="9" y="2" width="3" height="10" fill="#2b2620"/><rect x="13" y="0" width="3" height="12" fill="#c9bfa8"/></svg>
+    <svg width="22" height="11" viewBox="0 0 25 12"><rect x="0.5" y="0.5" width="21" height="11" rx="3" fill="none" stroke="#2b2620"/><rect x="2.5" y="2.5" width="14" height="7" rx="1.5" fill="#2b2620"/><rect x="22.5" y="4" width="2" height="4" rx="1" fill="#2b2620"/></svg>
+  </span></div>
+
+  <div class="content">
+    <div class="header">
+      <div>
+        <div class="greet">早安，今日宜背方</div>
+        <div class="sub">冬月初一 · 已连续学习 12 天</div>
+      </div>
+      <div class="avatar">方</div>
+    </div>
+
+    <div class="daily">
+      <span class="seal tag">每日歌诀</span>
+      <div class="verse">麻黄汤中臣桂枝，<br>杏仁甘草四般施。</div>
+      <div class="stamp">辛温<br>解表</div>
+      <div class="from"><span>—— 《麻黄汤》 · 解表剂</span><span class="go">去背此方 →</span></div>
+    </div>
+
+    <div class="sec-title"><h2>章节学习</h2><span class="more">全部 19 章 →</span></div>
+
+    <div class="grid">
+      <div class="chap">
+        <div class="name">解表剂<span class="num">16 方</span></div>
+        <div class="bar"><i style="width:81%"></i></div>
+        <div class="pct"><span>已学 13/16</span><b>81%</b></div>
+      </div>
+      <div class="chap">
+        <div class="name">泻下剂<span class="num">8 方</span></div>
+        <div class="bar"><i style="width:50%"></i></div>
+        <div class="pct"><span>已学 4/8</span><b>50%</b></div>
+      </div>
+      <div class="chap">
+        <div class="name">和解剂<span class="num">7 方</span></div>
+        <div class="bar"><i style="width:29%"></i></div>
+        <div class="pct"><span>已学 2/7</span><b>29%</b></div>
+      </div>
+      <div class="chap">
+        <div class="name">清热剂<span class="num">20 方</span></div>
+        <div class="bar"><i style="width:10%"></i></div>
+        <div class="pct"><span>已学 2/20</span><b>10%</b></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tabbar">
+    <div class="tab active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5a2 2 0 012-2h12a2 2 0 012 2v14l-4-3H6a2 2 0 01-2-2V5z"/></svg>学习</div>
+    <div class="tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8"/></svg>背诵</div>
+    <div class="tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M9 10a3 3 0 015.8 1c0 2-2.8 2.4-2.8 4M12 18h.01"/></svg>刷题</div>
+    <div class="tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>我的</div>
+  </div>
+</body>
+</html>
