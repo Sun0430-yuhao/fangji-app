@@ -25,7 +25,7 @@
         <div class="bar"><i :style="{ width: row.pct + '%' }"></i></div>
       </div>
 
-      <!-- 我的学习 -->
+      <!-- 1. 我的学习 -->
       <div class="sec-title"><h2>我的学习</h2></div>
       <div class="list pcard">
         <div class="item" @click="$router.push('/wrong')">
@@ -44,23 +44,7 @@
         </div>
       </div>
 
-      <!-- 备份：换机/重装前建议先导出 -->
-      <div class="sec-title"><h2>数据备份</h2><span class="more">覆盖安装一般不丢；卸载会清空</span></div>
-      <div class="list pcard">
-        <div class="item" @click="exportData">
-          <span class="ic">↓</span>导出学习进度
-          <span class="n">分享或复制 JSON</span>
-          <van-icon name="arrow" class="arrow" />
-        </div>
-        <div class="item" @click="triggerImport">
-          <span class="ic">↑</span>导入学习进度
-          <span class="n">将覆盖当前数据</span>
-          <van-icon name="arrow" class="arrow" />
-        </div>
-      </div>
-      <input ref="fileInput" type="file" accept="application/json,.json,text/plain" class="hidden-file" @change="onImportFile" />
-
-      <!-- 数据管理：总 + 分项重置 -->
+      <!-- 2. 数据管理 -->
       <div class="sec-title"><h2>数据管理</h2><span class="more">重置前都会再问你一次</span></div>
       <div class="list pcard">
         <div class="item" @click="confirmReset('背诵记忆', '已背卡片的复习排期将清空，明日重新排队', store.resetMemory)">
@@ -94,20 +78,153 @@
         </div>
       </div>
 
+      <!-- 3. 同步（登录后自动上传云端） -->
+      <div class="sec-title"><h2>同步</h2><span class="more">{{ syncHint }}</span></div>
+      <div class="list pcard auth-card">
+        <template v-if="!syncOn">
+          <div class="auth-off">未配置云同步。本地进度仍可用；配置见 docs/15。</div>
+        </template>
+        <template v-else-if="!userAccount">
+          <van-field v-model="account" label="账号" placeholder="字母数字下划线" type="text" autocomplete="username" />
+          <van-field v-model="password" label="密码" placeholder="至少 6 位" type="password" autocomplete="current-password" />
+          <div class="auth-actions">
+            <van-button size="small" round plain type="primary" :loading="authBusy" @click="doLogin">登录</van-button>
+            <van-button size="small" round type="primary" :loading="authBusy" @click="doRegister">注册</van-button>
+          </div>
+        </template>
+        <template v-else>
+          <div class="item">
+            <span class="ic">◎</span>已登录
+            <span class="n email-n">{{ userAccount }}</span>
+          </div>
+          <div class="item" @click="doLogout">
+            <span class="ic">⇥</span>退出登录
+            <span class="n">本机进度保留</span>
+            <van-icon name="arrow" class="arrow" />
+          </div>
+        </template>
+      </div>
+
+      <!-- 4. 数据备份 -->
+      <div class="sec-title"><h2>数据备份</h2><span class="more">覆盖安装一般不丢；卸载会清空</span></div>
+      <div class="list pcard">
+        <div class="item" @click="exportData">
+          <span class="ic">↓</span>导出学习进度
+          <span class="n">分享或复制 JSON</span>
+          <van-icon name="arrow" class="arrow" />
+        </div>
+        <div class="item" @click="triggerImport">
+          <span class="ic">↑</span>导入学习进度
+          <span class="n">将覆盖当前数据</span>
+          <van-icon name="arrow" class="arrow" />
+        </div>
+      </div>
+      <input ref="fileInput" type="file" accept="application/json,.json,text/plain" class="hidden-file" @change="onImportFile" />
+
       <p class="disclaimer">本应用为方剂学学习工具，内容供记忆练习，不构成诊疗建议。</p>
     </div>
   </div>
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { showConfirmDialog, showDialog, showToast } from 'vant'
 import { useStudyStore } from '../store'
 import { exportProgressText } from '../backup-io'
+import {
+  getCurrentAccount,
+  signInWithPassword,
+  signOut,
+  signUp,
+  syncAfterAuth,
+  syncAvailable
+} from '../sync'
+import { promptProgressConflict } from '../sync-ui'
 
 const props = defineProps({ data: { type: Object, required: true } })
 const store = useStudyStore()
 const fileInput = ref(null)
+
+const syncOn = syncAvailable()
+const account = ref('')
+const password = ref('')
+const userAccount = ref('')
+const authBusy = ref(false)
+
+const syncHint = computed(() => {
+  if (!syncOn) return '可选；未配置不影响本地学习'
+  return userAccount.value ? '登录后自动上传云端' : '账号 + 密码登录'
+})
+
+async function refreshUser() {
+  if (!syncOn) {
+    userAccount.value = ''
+    return
+  }
+  try {
+    userAccount.value = await getCurrentAccount()
+  } catch (_) {
+    userAccount.value = ''
+  }
+}
+
+async function afterAuthOk(okMsg) {
+  await refreshUser()
+  showToast(okMsg)
+  try {
+    const r = await syncAfterAuth(store, { promptConflict: promptProgressConflict })
+    if (r.action === 'downloaded' || r.action === 'aligned-cloud') showToast('已从云端恢复进度')
+    else if (r.action === 'uploaded') showToast('本机进度已上传')
+  } catch (e) {
+    showToast(e?.message || '同步失败，学习仍会保存在本机')
+  }
+}
+
+async function doRegister() {
+  if (!account.value.trim() || !password.value) {
+    showToast('请填写账号和密码')
+    return
+  }
+  authBusy.value = true
+  try {
+    await signUp(account.value, password.value)
+    password.value = ''
+    await afterAuthOk('注册成功')
+  } catch (e) {
+    showToast(e?.message || '注册失败')
+  } finally {
+    authBusy.value = false
+  }
+}
+
+async function doLogin() {
+  if (!account.value.trim() || !password.value) {
+    showToast('请填写账号和密码')
+    return
+  }
+  authBusy.value = true
+  try {
+    await signInWithPassword(account.value, password.value)
+    password.value = ''
+    await afterAuthOk('登录成功')
+  } catch (e) {
+    showToast(e?.message || '登录失败')
+  } finally {
+    authBusy.value = false
+  }
+}
+
+async function doLogout() {
+  try {
+    await signOut()
+    userAccount.value = ''
+    showToast('已退出')
+  } catch (e) {
+    showToast(e?.message || '退出失败')
+  }
+}
+
+onMounted(() => { refreshUser() })
 
 function confirmReset(name, detail, action) {
   showConfirmDialog({
@@ -213,6 +330,18 @@ const mastery = computed(() => {
 .item.danger { color: var(--cinnabar); }
 .item.danger .ic { background: #fbf1ea; }
 .hidden-file { display: none; }
+.auth-card :deep(.van-cell) { background: transparent; padding: 10px 16px; }
+.auth-card :deep(.van-field__label) { width: 3.2em; color: var(--ink); }
+.auth-actions {
+  display: flex; gap: 10px; justify-content: flex-end;
+  padding: 12px 16px 14px;
+}
+.auth-off {
+  padding: 14px 16px; font-size: 13px; color: var(--ink-light); line-height: 1.7;
+}
+.email-n {
+  max-width: 52%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
 .disclaimer {
   font-size: 11px; color: var(--ink-light); line-height: 1.7;
   text-align: center; padding: 8px 12px 24px; letter-spacing: 0.5px;

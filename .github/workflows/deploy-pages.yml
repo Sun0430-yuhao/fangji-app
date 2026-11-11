@@ -24,7 +24,11 @@ jobs:
           node-version: '20'
           cache: npm
       - run: npm ci
-      - run: npm run build:pwa
+      - name: Build PWA
+        env:
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+        run: npm run build:pwa
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

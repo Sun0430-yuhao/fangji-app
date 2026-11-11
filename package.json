@@ -9,7 +9,6 @@
     "build:pwa": "npm run embed && vite build",
     "preview": "vite preview --host",
     "pwa": "npm run build:pwa && vite preview --host --port 4173",
-
     "cap:sync": "npm run build:cap && npx cap sync",
     "cap:android": "npm run build:cap && npx cap sync android && npx cap open android",
     "cap:ios": "npm run build:cap && npx cap sync ios && npx cap open ios",
@@ -24,6 +23,7 @@
     "@capacitor/cli": "^8.6.0",
     "@capacitor/core": "^8.6.0",
     "@capacitor/ios": "^8.6.0",
+    "@supabase/supabase-js": "^2.119.0",
     "pinia": "^3.0.3",
     "pinyin-pro": "^3.29.5",
     "vant": "^4.9.21",

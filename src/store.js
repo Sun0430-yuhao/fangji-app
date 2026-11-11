@@ -1,7 +1,9 @@
 // 学习状态：进度 / 记忆调度（简化 SM-2）/ 错题 / 收藏 / 打卡
 // 持久化 localStorage，损坏时自动重置并提示（负面路径不白屏）
 // 无每日新卡上限：可无限次学习、无限次重置
+// 登录后 persist 防抖推送到 Supabase（见 sync.js）
 import { defineStore } from 'pinia'
+import { scheduleProgressPush } from './sync'
 
 const LS_KEY = 'fangji-progress-v1'
 const INTERVALS = [1, 2, 4, 7, 15, 30] // 记得档间隔递进（天）
@@ -29,6 +31,7 @@ function freshState() {
     dailyStudyGoal: 30, // 今日背诵目标（自评张数）
     dailyQuizGoal: 20,  // 今日刷题目标（作答次数）
     sessionSize: 30,    // 本轮新学张数：与背诵目标默认同步；-1=范围内全部
+    updatedAt: '',      // ISO，用于与云端冲突比较
     resetNotice: false
   }
 }
@@ -78,10 +81,16 @@ export const useStudyStore = defineStore('study', {
         this.studiedToday = next
       }
     },
+    snapshotForCloud() {
+      const { resetNotice, ...rest } = this.$state
+      return { ...rest }
+    },
     persist() {
       try {
+        this.updatedAt = new Date().toISOString()
         const { resetNotice, ...rest } = this.$state
         localStorage.setItem(LS_KEY, JSON.stringify(rest))
+        scheduleProgressPush(() => this.snapshotForCloud())
         return true
       } catch (e) {
         return false
@@ -109,6 +118,11 @@ export const useStudyStore = defineStore('study', {
       Object.assign(this, freshState(), rest)
       this.studiedToday = normalizeToday(this.studiedToday)
       if (!this.persist()) throw new Error('写入失败')
+    },
+    /** 应用云端进度（走 import 路径，会写 LS 并触发推送对齐） */
+    applyCloudData(data) {
+      if (!data || typeof data !== 'object') throw new Error('云端数据无效')
+      this.importBackup({ app: 'fangji-study', version: 1, data })
     },
     markLearned(fid) {
       if (!this.learned[fid]) {

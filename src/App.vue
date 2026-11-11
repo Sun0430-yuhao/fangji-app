@@ -37,9 +37,12 @@
 <script setup>
 import { ref, shallowRef, computed, onMounted, provide } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { showToast } from 'vant'
 import { loadData, loadDataSync } from './data'
 import { useStudyStore } from './store'
 import { setupNativeBack } from './native-back'
+import { getSession, syncAfterAuth, syncAvailable } from './sync'
+import { promptProgressConflict } from './sync-ui'
 
 const route = useRoute()
 const router = useRouter()
@@ -97,10 +100,25 @@ async function boot() {
   }
 }
 
+async function restoreCloudSession() {
+  if (!syncAvailable()) return
+  try {
+    const session = await getSession()
+    if (!session) return
+    const r = await syncAfterAuth(store, { promptConflict: promptProgressConflict })
+    if (r.action === 'downloaded' || r.action === 'aligned-cloud') {
+      showToast('已同步云端进度')
+    }
+  } catch (e) {
+    console.warn('[fangji-sync] boot sync skipped', e)
+  }
+}
+
 onMounted(() => {
   try { store.load() } catch (_) {}
   boot()
   try { setupNativeBack(router) } catch (_) {}
+  restoreCloudSession()
 })
 
 provide('appData', data)
