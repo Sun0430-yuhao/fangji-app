@@ -2,6 +2,8 @@
 import {
   ActionSheet,
   Button,
+  Checkbox,
+  CheckboxGroup,
   Circle,
   Dialog,
   Empty,
@@ -9,6 +11,7 @@ import {
   Icon,
   NavBar,
   NoticeBar,
+  Popup,
   Search,
   Tabbar,
   TabbarItem
@@ -16,6 +19,8 @@ import {
 
 import 'vant/es/action-sheet/style'
 import 'vant/es/button/style'
+import 'vant/es/checkbox/style'
+import 'vant/es/checkbox-group/style'
 import 'vant/es/circle/style'
 import 'vant/es/dialog/style'
 import 'vant/es/empty/style'
@@ -23,6 +28,7 @@ import 'vant/es/field/style'
 import 'vant/es/icon/style'
 import 'vant/es/nav-bar/style'
 import 'vant/es/notice-bar/style'
+import 'vant/es/popup/style'
 import 'vant/es/search/style'
 import 'vant/es/tabbar/style'
 import 'vant/es/tabbar-item/style'
@@ -31,6 +37,8 @@ import 'vant/es/toast/style'
 const components = [
   ActionSheet,
   Button,
+  Checkbox,
+  CheckboxGroup,
   Circle,
   Dialog,
   Empty,
@@ -38,6 +46,7 @@ const components = [
   Icon,
   NavBar,
   NoticeBar,
+  Popup,
   Search,
   Tabbar,
   TabbarItem

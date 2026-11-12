@@ -143,6 +143,30 @@ export const useStudyStore = defineStore('study', {
         this.persist()
       }
     },
+    removeFromDeck(fid) {
+      if (!this.memory[fid]) return
+      delete this.memory[fid]
+      this.persist()
+    },
+    /** 批量加入背诵牌组；已在组内的跳过 */
+    addManyToDeck(fids) {
+      let n = 0
+      for (const fid of fids || []) {
+        if (!fid || this.memory[fid]) continue
+        this.memory[fid] = { rep: 0, interval: 0, due: todayStr(), strength: 0 }
+        if (!this.learned[fid]) this.learned[fid] = true
+        n += 1
+      }
+      if (n) this.persist()
+      return n
+    },
+    toggleDeck(fid) {
+      if (this.memory[fid]) this.removeFromDeck(fid)
+      else {
+        this.addToDeck(fid)
+        this.markLearned(fid)
+      }
+    },
     // 三档自评：忘记 / 模糊 / 记得
     grade(fid, g) {
       const m = this.memory[fid] || { rep: 0, interval: 0, due: todayStr(), strength: 0 }
